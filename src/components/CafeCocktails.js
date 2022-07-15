@@ -1,20 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CafeCocktail from "./CafeCocktail";
+import SubCategory from "./SubCategory";
 
-function CafeCocktails({ product }) {
-  if (product) {
-    return (
-      <div>
-          <h1>{product[1]?.name}</h1>
+function CafeCocktails({ item }) {
+  const [sub, setSub] = useState("ყველა");
 
-          <div className="media-scroller snaps-inline">
-          {product[1]?.subCategories[0].products.map((prod) => (
-             <CafeCocktail item={prod} />
-        ))}
-        </div>
-      </div>
-    );
+  function change(name) {
+    setSub(name);
   }
+  return (
+    <div>
+      <div>
+        {item.map((items) => {
+          return (
+            <span className="sub-categories" style={{marginRight: "15px",cursor: 'pointer'}}onClick={() => change(items.name)}>
+              <SubCategory items={items} />
+            </span>
+          );
+        })}
+      </div>
+      <div>
+        {item.map((itm) => {
+          return itm.name === sub ? (
+            <CafeCocktail itm={itm}
+            key={Math.random()}
+             />
+          ) : null;
+        })}
+      </div>
+    </div>
+  );
 }
-
 export default CafeCocktails;
