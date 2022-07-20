@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Prods from "./components/Prods";
+import ProductPage from "./pages/ProductPage";
+import SubProductPage from "./pages/SubProductPage";
+import { Routes, Route , Link} from "react-router-dom";
 
 function App() {
   const one =
@@ -26,34 +29,27 @@ function App() {
   if (product) {
     return (
       <div>
-        <div id='container'>
-          <div class='steam' id='steam1'>
-            {" "}
-          </div>
-          <div class='steam' id='steam2'>
-            {" "}
-          </div>
-          <div class='steam' id='steam3'>
-            {" "}
-          </div>
-          <div class='steam' id='steam4'>
-            {" "}
-          </div>
+        <Link to={`/`}>
+          <img src='https://shop.meama.ge/meama-images/thumbs/0001670_HORIZONTALURI-01.webp'></img>
+        </Link>
 
-          <div id='cup'>
-            <div id='cup-body'>
-              <div id='cup-shade'></div>
-            </div>
-            <div id='cup-handle'></div>
-          </div>
-
-          <div id='saucer'></div>
-
-          <div id='shadow'></div>
-        </div>
         {console.log(product)}
-        {console.log(languages)}
-        <Prods product={product} />
+
+        <Routes>
+          <Route
+            path='/'
+            element={<Prods product={product} />}
+          />
+
+          <Route
+            path='/ProductPage/:id'
+            element={<ProductPage product={product} />}
+          />
+          <Route
+            path='/SubProductPage/:id'
+            element={<SubProductPage product={product} />}
+          />
+        </Routes>
       </div>
     );
   }

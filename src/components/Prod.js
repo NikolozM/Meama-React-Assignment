@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Prod({ item, name }) {
-  console.log(name);
   return (
     <div
       className='media-element'
       style={{ marginTop: "30px" }}
     >
+      <Link className='media-element link' to={`/ProductPage/${item.id}`}>
       <img
         style={{
           marginTop:
@@ -20,6 +21,7 @@ function Prod({ item, name }) {
       ></img>
       <p>{item?.name}</p>
       <p>{item?.price} ლ</p>
+      </Link>
     </div>
   );
 }

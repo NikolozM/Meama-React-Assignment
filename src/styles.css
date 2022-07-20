@@ -49,6 +49,11 @@
   color:red;
 }
 
+.link {
+  text-decoration: none;
+  color: black;
+}
+
 @keyframes rollout {
   0% {
     transform: translateY(-100px);
