@@ -45,22 +45,12 @@ export default function ProductPage({ product }) {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          borderBottom: "2px solid gray",
-        }}
-      >
-        <div style={{ width: "15%" }}>
+      <div className='product-description'>
+        <div className='product-img'>
           {" "}
-          <img
-            style={{ width: "100%" }}
-            src={singleItem.mainPhoto}
-            alt=''
-          ></img>
+          <img src={singleItem.mainPhoto} alt=''></img>
         </div>
-        <div style={{ width: "30%" }}>
+        <div>
           <p>{singleItem.name}</p>
           <p>{singleItem.title}</p>
           {decodeEntities(singleItem.description)}
@@ -73,20 +63,16 @@ export default function ProductPage({ product }) {
 
       {singleItem.capsuleProducts.map((item) => {
         return (
-          <div style={{display:"flex", justifyContent:"space-between", margin:"30px 330px",borderBottom:"3px inset gray"}}>
-            <div style={{width:"15%"}}>
+          <div className='capsule-container'>
+            <div className='capsule-img'>
               <img
-                style={{
-                  backgroundColor: item.bgColor,
-                  borderRadius: "50%",
-                  padding: "20px",
-                  width:"100%"
-                }}
+                style={{ backgroundColor: item.bgColor }}
                 src={item.imgUrl}
                 alt=''
               ></img>
             </div>
-            <div style={{width:"15%"}}>
+
+            <div>
               <p>{item.name}</p>
               {item.specifications.map((spec) => {
                 return (

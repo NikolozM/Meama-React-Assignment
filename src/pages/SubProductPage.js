@@ -16,37 +16,72 @@ export default function SubProductPage({ product }) {
 
   console.log(arr);
 
+  var decodeEntities = (function () {
+    // this prevents any overhead from creating the object each time
+    var element = document.createElement("div");
+
+    function decodeHTMLEntities(str) {
+      if (str && typeof str === "string") {
+        // strip script/html tags
+        str = str.replace(
+          /<script[^>]*>([\S\s]*?)<\/script>/gim,
+          ""
+        );
+        str = str.replace(
+          /<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim,
+          ""
+        );
+        element.innerHTML = str;
+        str = element.textContent;
+        element.textContent = "";
+      }
+
+      return str;
+    }
+
+    return decodeHTMLEntities;
+  })();
+
   return (
     <div>
-      <div style={{ width: "20%" }}>
-        {" "}
-        <img
-          style={{ width: "100%" }}
-          src={singleItem.mainPhoto}
-          alt=''
-        ></img>
-        <p>{singleItem.name}</p>
+      <div className='product-description'>
+        <div className='product-img'>
+          {" "}
+          <img src={singleItem.mainPhoto} alt=''></img>
+        </div>
+        <div>
+          <p>{singleItem.name}</p>
+          <p>{singleItem.title}</p>
+          {decodeEntities(singleItem.description)}
+
+          <p style={{ marginTop: "30px" }}>
+            {decodeEntities(singleItem.shortDescription)}
+          </p>
+        </div>
       </div>
+
       {singleItem.capsuleProducts.map((item) => {
         return (
-          <div>
-            <img
-              style={{
-                backgroundColor: item.bgColor,
-                borderRadius: "50%",
-                padding: "20px",
-              }}
-              src={item.imgUrl}
-              alt=''
-            ></img>
-            <p>{item.name}</p>
-            {item.specifications.map((spec) => {
-              return (
-                <p>
-                  {spec.name} {spec.value}
-                </p>
-              );
-            })}
+          <div className='capsule-container'>
+            <div className='capsule-img'>
+              <img
+                style={{
+                  backgroundColor: item.bgColor,
+                }}
+                src={item.imgUrl}
+                alt=''
+              ></img>
+            </div>
+            <div>
+              <p>{item.name}</p>
+              {item.specifications.map((spec) => {
+                return (
+                  <p>
+                    {spec.name} {spec.value}
+                  </p>
+                );
+              })}
+            </div>
           </div>
         );
       })}
